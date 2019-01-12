@@ -49,7 +49,7 @@ jobs:
       - run:
           name: use InSpec to validate aws configuration
           working_directory: test
-          command: inspec exec integration/default/tf_aws_platform_vpc.rb -t aws://
+          command: rspec integration/default/tf_aws_platform_vpc.rb
       - run:
           name: destroy aws resources
           working_directory: test/fixture
