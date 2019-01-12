@@ -1,0 +1,9 @@
+{
+  "cluster_name": "ci.feedyard.io",
+
+  "cluster_vpc_name" : "vpc-ci-tf-aws-platform",
+  "cluster_aws_region" : "us-east-1",
+  "cluster_cidr_reservation_start" : "0",
+  "cluster_azs" : ["us-east-1b","us-east-1c","us-east-1d","us-east-1e"],
+  "cluster_enable_nat_gateway" : "false"
+}
