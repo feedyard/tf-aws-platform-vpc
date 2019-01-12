@@ -84,18 +84,21 @@ output "internal_route_table_ids" {
   value = ["${module.cluster_vpc.internal_route_table_ids}"]
 }
 
+# map of nat subnet ids, azs, cidrs, and names
 output "nat_subnet_objects" {
   value = {
     subnet = "${module.cluster_vpc.nat_subnet_objects}"
   }
 }
 
+# map of public subnet ids, azs, cidrs, and names
 output "public_subnet_objects" {
   value = {
     subnet = "${module.cluster_vpc.public_subnet_objects}"
   }
 }
 
+# map of internal subnet ids, azs, cidrs, and names
 output "internal_subnet_objects" {
   value = {
     subnet = "${module.cluster_vpc.internal_subnet_objects}"

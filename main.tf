@@ -54,13 +54,12 @@ resource "aws_route_table_association" "nat_subnet" {
 
 # public subnets
 resource "aws_subnet" "public_subnet" {
-  vpc_id            = "${aws_vpc.mod.id}"
-  cidr_block        = "10.${var.cidr_reservation_start}.${var.public_subnet_start[count.index]}.0/${var.public_subnet_size}"
-  availability_zone = "${element(var.azs, count.index)}"
-  count             = "${length(var.azs)}"
-  tags              = "${merge(var.tags, map("Name", format("subnet-%s-public-%s", var.name, element(var.azs, count.index))), map(format("kubernetes.io/cluster/%s",var.cluster_name),"shared"))}"
-
+  vpc_id                  = "${aws_vpc.mod.id}"
+  cidr_block              = "10.${var.cidr_reservation_start}.${var.public_subnet_start[count.index]}.0/${var.public_subnet_size}"
+  availability_zone       = "${element(var.azs, count.index)}"
+  count                   = "${length(var.azs)}"
   map_public_ip_on_launch = "${var.map_public_ip_on_launch}"
+  tags                    = "${merge(var.tags, map("Name", format("subnet-%s-public-%s", var.name, element(var.azs, count.index))), map(format("kubernetes.io/cluster/%s",var.cluster_name),"shared"))}"
 }
 
 resource "aws_internet_gateway" "mod" {
@@ -111,6 +110,5 @@ resource "aws_route_table_association" "internal" {
 resource "aws_db_subnet_group" "internal_db_subnet_group" {
   name       = "${var.name}_db_subnet_group"
   subnet_ids = ["${aws_subnet.internal_subnet.*.id}"]
-
   tags = "${merge(var.tags, map("Name", format("%s-db-subnet-group", var.name)))}"
 }

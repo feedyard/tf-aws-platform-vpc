@@ -64,7 +64,7 @@ variable "map_public_ip_on_launch" {
   default = "false"
 }
 
-# A list of VGWs the public route table should propagate.
+# A list of VGWs the public route table should propagate
 variable "public_propagating_vgws" {
   default = []
 }

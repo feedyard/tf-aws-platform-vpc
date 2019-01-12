@@ -97,6 +97,7 @@ output "vpc" {
   }
 }
 
+# map of nat subnet ids, azs, cidrs, and names
 output "nat_subnet_objects" {
   value = {
     id   = "${aws_subnet.nat_subnet.*.id}"
@@ -106,6 +107,7 @@ output "nat_subnet_objects" {
   }
 }
 
+# map of public subnet ids, azs, cidrs, and names
 output "public_subnet_objects" {
   value = {
     id   = "${aws_subnet.public_subnet.*.id}"
@@ -115,6 +117,7 @@ output "public_subnet_objects" {
   }
 }
 
+# map of internal subnet ids, azs, cidrs, and names
 output "internal_subnet_objects" {
   value = {
     id   = "${aws_subnet.internal_subnet.*.id}"
@@ -124,6 +127,7 @@ output "internal_subnet_objects" {
   }
 }
 
+# cluster name defined
 output "cluster_name" {
   value = {
     name = "${var.cluster_name}"

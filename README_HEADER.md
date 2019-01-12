@@ -2,8 +2,7 @@
 
 Terraform module to create vpc prepared for platform-configured kubernetes deployment (eks, kops). Prepares a /19  
 according to the layout below. However, you can override most setting to create a variety of public/nat/interal  
-network configurations.
-
+network configurations.  
 
 ## Usage
 
@@ -45,4 +44,3 @@ module "cluster_vpc" {
 | /23 | subnet-internal     | 128    | 10.0.14.0/25 | 10.0.14.128/25 | 10.0.15.0/25 | 10.0.15.128/25 | 512        |
 | /20 | (reserved)          |        |              |                |              |                | 4096       |
 |     | (total)             |        |              |                |              |                | 8192       |
-
