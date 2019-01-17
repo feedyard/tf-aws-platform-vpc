@@ -14,34 +14,49 @@ variable "cidr_reservation_offset" {
   default = "0"
 }
 
-# default nat subnet size  /22 = 1024 addresses
-variable "nat_subnet_size" {
-  default = "22"
+# default offset (10.0.x.0) for public subnets in up to four available zones of /25
+variable "public_subnet_offset" {
+  default = ["0", "0", "1", "1"]
 }
 
-# default starting point for nat subnets in up to four available zones 0f /22
-variable "nat_subnet_start" {
-  default = ["0", "4", "8", "12"]
-}
-
-# default public subnet size  /23 = 512 addresses
-variable "public_subnet_size" {
-  default = "23"
-}
-
-# default starting point for public subnets in up to four available zones 0f /23
+# default starting point (10.0.0.x) for public subnets in up to four available zones of /25
 variable "public_subnet_start" {
-  default = ["16", "18", "20", "22"]
+  default = ["0", "128", "0", "128"]
 }
 
-# default internal subnet size  /23 = 512 addresses
-variable "internal_subnet_size" {
+# default public subnet size  /25 = 128 (x 4 = 512) addresses
+variable "public_subnet_size" {
+  default = "25"
+}
+
+# default offset (10.0.0.x)  for nat subnets in up to four available zones 0f /23
+variable "nat_subnet_offset" {
+  default = ["4", "6", "8", "10"]
+}
+
+# default starting point (10.0.0.x) for nat subnets in up to four available zones 0f /23
+variable "nat_subnet_start" {
+  default = ["0", "0", "0", "0"]
+}
+
+# default nat subnet size  /23 = 512 (x 4 = 2048) addresses
+variable "nat_subnet_size" {
   default = "23"
 }
 
-# default starting point for internal subnets in up to four available zones 0f /23
+# default offset (10.0.0.x)  for internal subnets in up to four available zones 0f /25
+variable "internal_subnet_offset" {
+  default = ["14", "14", "15", "15"]
+}
+
+# default starting point (10.0.0.x) for internal subnets in up to four available zones 0f /25
 variable "internal_subnet_start" {
-  default = ["24", "26", "28", "30"]
+  default = ["0", "128", "0", "128"]
+}
+
+# default internal subnet size /25 = 128 (x 4 = 512)  addresses
+variable "internal_subnet_size" {
+  default = "25"
 }
 
 # list of azs

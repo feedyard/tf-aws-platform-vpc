@@ -110,5 +110,5 @@ resource "aws_route_table_association" "internal" {
 resource "aws_db_subnet_group" "internal_db_subnet_group" {
   name       = "${var.name}_db_subnet_group"
   subnet_ids = ["${aws_subnet.internal_subnet.*.id}"]
-  tags = "${merge(var.tags, map("Name", format("%s-db-subnet-group", var.name)))}"
+  tags       = "${merge(var.tags, map("Name", format("%s-db-subnet-group", var.name)))}"
 }

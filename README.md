@@ -2,8 +2,7 @@
 
 Terraform module to create vpc prepared for platform-configured kubernetes deployment (eks, kops). Prepares a /19  
 according to the layout below. However, you can override most setting to create a variety of public/nat/interal  
-network configurations.
-
+network configurations.  
 
 ## Usage
 
@@ -45,7 +44,6 @@ module "cluster_vpc" {
 | /23 | subnet-internal     | 128    | 10.0.14.0/25 | 10.0.14.128/25 | 10.0.15.0/25 | 10.0.15.128/25 | 512        |
 | /20 | (reserved)          |        |              |                |              |                | 4096       |
 |     | (total)             |        |              |                |              |                | 8192       |
-
 ## Inputs
 
 | Name | Description | Type | Default | Required |
@@ -58,16 +56,19 @@ module "cluster_vpc" {
 | enable\_dns\_hostnames | should be true to use private DNS within the VPC | string | `true` | no |
 | enable\_dns\_support | should be true to use private DNS within the VPC | string | `true` | no |
 | enable\_nat\_gateway | should be true to provision NAT Gateways for each NAT network | string | `false` | no |
-| internal\_subnet\_size | default internal subnet size  /23 = 512 addresses | string | `23` | no |
-| internal\_subnet\_start | default starting point for internal subnets in up to four available zones 0f /23 | list | `<list>` | no |
+| internal\_subnet\_offset | default offset (10.0.0.x)  for internal subnets in up to four available zones 0f /25 | list | `<list>` | no |
+| internal\_subnet\_size | default internal subnet size /25 = 128 (x 4 = 512)  addresses | string | `25` | no |
+| internal\_subnet\_start | default starting point (10.0.0.x) for internal subnets in up to four available zones 0f /25 | list | `<list>` | no |
 | map\_public\_ip\_on\_launch | should be true if you do want to auto-assign public IP on launch | string | `false` | no |
 | name | vpc name for an instance of the platform" | string | - | yes |
-| nat\_subnet\_size | default nat subnet size  /22 = 1024 addresses | string | `22` | no |
-| nat\_subnet\_start | default starting point for nat subnets in up to four available zones 0f /22 | list | `<list>` | no |
+| nat\_subnet\_offset | default offset (10.0.0.x)  for nat subnets in up to four available zones 0f /23 | list | `<list>` | no |
+| nat\_subnet\_size | default nat subnet size  /23 = 512 (x 4 = 2048) addresses | string | `23` | no |
+| nat\_subnet\_start | default starting point (10.0.0.x) for nat subnets in up to four available zones 0f /23 | list | `<list>` | no |
 | private\_propagating\_vgws | A list of VGWs the private route table should propagate | list | `<list>` | no |
-| public\_propagating\_vgws | A list of VGWs the public route table should propagate. | list | `<list>` | no |
-| public\_subnet\_size | default public subnet size  /23 = 512 addresses | string | `23` | no |
-| public\_subnet\_start | default starting point for public subnets in up to four available zones 0f /23 | list | `<list>` | no |
+| public\_propagating\_vgws | A list of VGWs the public route table should propagate | list | `<list>` | no |
+| public\_subnet\_offset | default offset (10.0.x.0) for public subnets in up to four available zones of /25 | list | `<list>` | no |
+| public\_subnet\_size | default public subnet size  /25 = 128 (x 4 = 512) addresses | string | `25` | no |
+| public\_subnet\_start | default starting point (10.0.0.x) for public subnets in up to four available zones of /25 | list | `<list>` | no |
 | tags | A map of tags to add to all resources | map | `<map>` | no |
 
 ## Outputs
@@ -75,25 +76,25 @@ module "cluster_vpc" {
 | Name | Description |
 |------|-------------|
 | azs | list of azs |
-| cluster\_name | - |
+| cluster\_name | cluster name defined |
 | db\_subnet\_group | db subnet group for internal subnet |
 | igw\_id | internet gateway |
 | internal\_route\_table\_ids | list of internal routing table ids |
 | internal\_subnet\_cidrs | list of internal subnet cidr blocks |
 | internal\_subnet\_ids | list of internal subnet ids |
-| internal\_subnet\_objects | - |
+| internal\_subnet\_objects | map of internal subnet ids, azs, cidrs, and names |
 | nat\_eips | list of nat gateway internal ip addresses |
 | nat\_eips\_public\_ips | list of net gateway public ip addresses |
 | nat\_route\_table\_ids | list of nat routing table ids |
 | nat\_subnet\_cidrs | list of nat subnet cidr blocks |
 | nat\_subnet\_ids | list of nat subnet ids |
-| nat\_subnet\_objects | - |
+| nat\_subnet\_objects | map of nat subnet ids, azs, cidrs, and names |
 | natgw\_ids | list of nat gateway ids |
 | natgw\_objects | - |
 | public\_route\_table\_ids | list of public routing table ids |
 | public\_subnet\_cidrs | list of public subnet cidr blocks |
 | public\_subnet\_ids | list of public subnet ids |
-| public\_subnet\_objects | - |
+| public\_subnet\_objects | map of public subnet ids, azs, cidrs, and names |
 | vpc | maps currently used by kops pipeline |
 | vpc\_cidr | cidr block of vpc created |
 | vpc\_id | id of the vpc created |
