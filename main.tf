@@ -1,5 +1,5 @@
 resource "aws_vpc" "mod" {
-  cidr_block           = "10.${var.cidr_reservation_start}.${var.cidr_reservation_offset}.0/${var.cidr_reservation_size}"
+  cidr_block           = "${var.cidr_class_a}.${var.cidr_reservation_start}.${var.cidr_reservation_offset}.0/${var.cidr_reservation_size}"
   enable_dns_hostnames = "${var.enable_dns_hostnames}"
   enable_dns_support   = "${var.enable_dns_support}"
   tags                 = "${merge(var.tags, map("Name", format("%s", var.name)), map(format("kubernetes.io/cluster/%s",var.cluster_name),"shared"))}"
@@ -8,11 +8,11 @@ resource "aws_vpc" "mod" {
 # public subnets
 resource "aws_subnet" "public_subnet" {
   vpc_id                  = "${aws_vpc.mod.id}"
-  cidr_block              = "10.${var.cidr_reservation_start}.${var.public_subnet_offset[count.index]}.${var.public_subnet_start[count.index]}/${var.public_subnet_size}"
+  cidr_block              = "${var.cidr_class_a}.${var.cidr_reservation_start}.${var.public_subnet_offset[count.index]}.${var.public_subnet_start[count.index]}/${var.public_subnet_size}"
   availability_zone       = "${element(var.azs, count.index)}"
   count                   = "${length(var.azs)}"
   map_public_ip_on_launch = "${var.map_public_ip_on_launch}"
-  tags                    = "${merge(var.tags, map("Name", format("subnet-%s-public-%s", var.name, element(var.azs, count.index))), map(format("kubernetes.io/cluster/%s",var.cluster_name),"shared"))}"
+  tags                    = "${merge(var.tags, map("Tier", "public"), map("Name", format("subnet-%s-public-%s", var.name, element(var.azs, count.index))), map(format("kubernetes.io/cluster/%s",var.cluster_name),"shared"))}"
 }
 
 resource "aws_internet_gateway" "mod" {
@@ -41,10 +41,10 @@ resource "aws_route_table_association" "public" {
 # nat subnets
 resource "aws_subnet" "nat_subnet" {
   vpc_id            = "${aws_vpc.mod.id}"
-  cidr_block        = "10.${var.cidr_reservation_start}.${var.nat_subnet_offset[count.index]}.${var.nat_subnet_start[count.index]}/${var.nat_subnet_size}"
+  cidr_block        = "${var.cidr_class_a}.${var.cidr_reservation_start}.${var.nat_subnet_offset[count.index]}.${var.nat_subnet_start[count.index]}/${var.nat_subnet_size}"
   availability_zone = "${element(var.azs, count.index)}"
   count             = "${length(var.azs)}"
-  tags              = "${merge(var.tags, map("Name", format("subnet-%s-nat-%s", var.name, element(var.azs, count.index))), map(format("kubernetes.io/cluster/%s",var.cluster_name),"shared"), map("kubernetes.io/role/internal-elb","1"))}"
+  tags              = "${merge(var.tags, map("Tier", "nat"), map("Name", format("subnet-%s-nat-%s", var.name, element(var.azs, count.index))), map(format("kubernetes.io/cluster/%s",var.cluster_name),"shared"), map("kubernetes.io/role/internal-elb","1"))}"
 }
 
 resource "aws_nat_gateway" "natgw" {
@@ -88,10 +88,10 @@ resource "aws_route_table_association" "nat_subnet" {
 # internal subnets
 resource "aws_subnet" "internal_subnet" {
   vpc_id            = "${aws_vpc.mod.id}"
-  cidr_block        = "10.${var.cidr_reservation_start}.${var.internal_subnet_offset[count.index]}.${var.internal_subnet_start[count.index]}/${var.internal_subnet_size}"
+  cidr_block        = "${var.cidr_class_a}.${var.cidr_reservation_start}.${var.internal_subnet_offset[count.index]}.${var.internal_subnet_start[count.index]}/${var.internal_subnet_size}"
   availability_zone = "${element(var.azs, count.index)}"
   count             = "${length(var.azs)}"
-  tags              = "${merge(var.tags, map("Name", format("subnet-%s-internal-%s", var.name, element(var.azs, count.index))), map(format("kubernetes.io/cluster/%s",var.cluster_name),"shared"))}"
+  tags              = "${merge(var.tags, map("Tier", "internal"), map("Name", format("subnet-%s-internal-%s", var.name, element(var.azs, count.index))), map(format("kubernetes.io/cluster/%s",var.cluster_name),"shared"))}"
 }
 
 resource "aws_route_table" "internal" {

@@ -1,8 +1,14 @@
 # vpc name for an instance of the platform"
 variable "name" {}
 
+variable "cidr_class_a" {
+  default = "10"
+}
+
 # Second octet for IANA private class A network reservation  10.X.0 0
-variable "cidr_reservation_start" {}
+variable "cidr_reservation_start" {
+  default = "0"
+}
 
 # default /19 (8192 addresses) network size for a platform instance  10.0.0.0/X
 variable "cidr_reservation_size" {
@@ -14,44 +20,44 @@ variable "cidr_reservation_offset" {
   default = "0"
 }
 
-# default offset (10.0.x.0) for public subnets in up to four available zones of /25
-variable "public_subnet_offset" {
-  default = ["0", "0", "1", "1"]
-}
-
-# default starting point (10.0.0.x) for public subnets in up to four available zones of /25
-variable "public_subnet_start" {
-  default = ["0", "128", "0", "128"]
-}
-
-# default public subnet size  /25 = 128 (x 4 = 512) addresses
-variable "public_subnet_size" {
-  default = "25"
-}
-
 # default offset (10.0.0.x)  for nat subnets in up to four available zones 0f /23
 variable "nat_subnet_offset" {
-  default = ["4", "6", "8", "10"]
+  default = ["0", "8", "16"]
 }
 
 # default starting point (10.0.0.x) for nat subnets in up to four available zones 0f /23
 variable "nat_subnet_start" {
-  default = ["0", "0", "0", "0"]
+  default = ["0", "0", "0"]
 }
 
 # default nat subnet size  /23 = 512 (x 4 = 2048) addresses
 variable "nat_subnet_size" {
-  default = "23"
+  default = "21"
+}
+
+# default offset (10.0.x.0) for public subnets in up to four available zones of /25
+variable "public_subnet_offset" {
+  default = ["24", "24", "24"]
+}
+
+# default starting point (10.0.0.x) for public subnets in up to four available zones of /25
+variable "public_subnet_start" {
+  default = ["0", "32", "64"]
+}
+
+# default public subnet size  /25 = 128 (x 4 = 512) addresses
+variable "public_subnet_size" {
+  default = "27"
 }
 
 # default offset (10.0.0.x)  for internal subnets in up to four available zones 0f /25
 variable "internal_subnet_offset" {
-  default = ["14", "14", "15", "15"]
+  default = ["25", "25", "26"]
 }
 
 # default starting point (10.0.0.x) for internal subnets in up to four available zones 0f /25
 variable "internal_subnet_start" {
-  default = ["0", "128", "0", "128"]
+  default = ["0", "128", "0"]
 }
 
 # default internal subnet size /25 = 128 (x 4 = 512)  addresses

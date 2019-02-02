@@ -1,9 +1,9 @@
 terraform {
-  required_version = ">= 0.11.11"
+  required_version = "= 0.11.11"
 }
 
 provider "aws" {
-  version = "~> 1.55"
+  version = "~> 1.57"
   region  = "${var.cluster_aws_region}"
 }
 

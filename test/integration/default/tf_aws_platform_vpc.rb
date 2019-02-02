@@ -22,12 +22,14 @@ tfvars["cluster_azs"].each do |az|
   describe subnet('subnet-' + tfvars["cluster_vpc_name"] + '-public-' + az) do
     it { should exist }
     it { should have_tag('pipeline').value('feedyard/tf-aws-platform-vpc') }
+    it { should have_tag('Tier').value('public') }
     it { should have_tag('kubernetes.io/cluster/' + tfvars["cluster_name"]).value('shared') }
   end
 
   describe subnet('subnet-' + tfvars["cluster_vpc_name"] + '-nat-' + az) do
     it { should exist }
     it { should have_tag('pipeline').value('feedyard/tf-aws-platform-vpc') }
+    it { should have_tag('Tier').value('nat') }
     it { should have_tag('kubernetes.io/cluster/' + tfvars["cluster_name"]).value('shared') }
     it { should have_tag('kubernetes.io/role/internal-elb').value('1') }
   end
@@ -35,6 +37,7 @@ tfvars["cluster_azs"].each do |az|
   describe subnet('subnet-' + tfvars["cluster_vpc_name"] + '-internal-' + az) do
     it { should exist }
     it { should have_tag('pipeline').value('feedyard/tf-aws-platform-vpc') }
+    it { should have_tag('Tier').value('internal') }
     it { should have_tag('kubernetes.io/cluster/' + tfvars["cluster_name"]).value('shared') }
   end
 
