@@ -19,7 +19,8 @@ workflows:
           after-terraform:
             - run:
                 name: use awspec to validate aws configuration
+                working_directory: test/fixture
                 environment:
                   PLATFORM_ENV: ci
                   AWS_REGION: us-east-1
-                command: rspec test/integration
+                command: rspec ../integration
