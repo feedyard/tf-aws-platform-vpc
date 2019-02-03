@@ -7,7 +7,7 @@ orbs:
 workflows:
   version: 2
 
-  tf-aws-state-bucket-module-ci-pipeline:
+  tf-aws-platform-vpc-module-ci-pipeline:
     jobs:
       - terraform/lint
       - terraform/module-ci:
