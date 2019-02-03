@@ -2,7 +2,7 @@
 version: 2.1
 
 orbs:
-  common-tasks: feedyard/terraform@dev:latest
+  terraform: feedyard/terraform@dev:latest
 
 workflows:
   version: 2
