@@ -9,6 +9,7 @@ describe vpc(tfvars["cluster_vpc_name"]) do
   it { should exist }
   it { should be_available }
   it { should have_route_table(tfvars["cluster_vpc_name"] + '-rt-public') }
+  it { should have_tag('Cluster').value(tfvars['cluster_name']) }
   it { should have_tag('pipeline').value('feedyard/tf-aws-platform-vpc') }
 end
 

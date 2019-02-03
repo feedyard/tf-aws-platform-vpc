@@ -2,7 +2,7 @@ resource "aws_vpc" "mod" {
   cidr_block           = "${var.cidr_class_a}.${var.cidr_reservation_start}.${var.cidr_reservation_offset}.0/${var.cidr_reservation_size}"
   enable_dns_hostnames = "${var.enable_dns_hostnames}"
   enable_dns_support   = "${var.enable_dns_support}"
-  tags                 = "${merge(var.tags, map("Name", format("%s", var.name)), map(format("kubernetes.io/cluster/%s",var.cluster_name),"shared"))}"
+  tags                 = "${merge(var.tags, map("Name", format("%s", var.name)), map("Cluster", format("%s", var.cluster_name)), map(format("kubernetes.io/cluster/%s",var.cluster_name),"shared"))}"
 }
 
 # public subnets
