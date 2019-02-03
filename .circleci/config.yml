@@ -18,7 +18,6 @@ workflows:
           env: ci
 
 #jobs:
-#
 #  build:
 #    environment:
 #      BASH_ENV: local.env
