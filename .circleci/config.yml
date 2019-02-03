@@ -12,7 +12,6 @@ workflows:
       - terraform/lint
       - terraform/module-ci:
           context: global
-          working_directory: test/fixture
           aws-access-key-id: $FEEDYARD_SANDBOX_CI_AWS_ACCESS_KEY_ID
           aws-secret-access-key: $FEEDYARD_SANDBOC_CI_AWS_SECRET_ACCESS_KEY
           aws-region: us-east-1
