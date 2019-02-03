@@ -20,6 +20,6 @@ workflows:
             - run:
                 name: use awspec to validate aws configuration
                 environment:
-                  PLATFORM_ENV: << parameters.env >>
-                  AWS_REGION: << parameters.aws-region >>
+                  PLATFORM_ENV: ci
+                  AWS_REGION: us-east-1
                 command: rspec ../integration
