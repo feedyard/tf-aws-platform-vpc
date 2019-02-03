@@ -16,3 +16,5 @@ workflows:
           aws-secret-access-key: $FEEDYARD_SANDBOC_CI_AWS_SECRET_ACCESS_KEY
           aws-region: us-east-1
           env: ci
+          requires:
+            - terraform/lint
