@@ -74,6 +74,7 @@ module "cluster_vpc" {
 | public\_subnet\_size | default public subnet size  /25 = 128 (x 4 = 512) addresses | string | `27` | no |
 | public\_subnet\_start | default starting point (10.0.0.x) for public subnets in up to four available zones of /25 | list | `[ "0", "32", "64" ]` | no |
 | tags | A map of tags to add to all resources | map | `{}` | no |
+| transit\_gateway | include transit gateway in nat route | string | `` | no |
 
 ## Outputs
 

@@ -103,6 +103,11 @@ variable "private_propagating_vgws" {
 # The name of the intendend K8 Cluster
 variable "cluster_name" {}
 
+# include transit gateway in nat route
+variable "transit_gateway" {
+  default = ""
+}
+
 # A map of tags to add to all resources
 variable "tags" {
   default = {}

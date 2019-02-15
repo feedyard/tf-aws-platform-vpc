@@ -77,6 +77,15 @@ resource "aws_route" "nat_gateway" {
   depends_on = ["aws_route_table.nat"]
 }
 
+resources "aws_route" "transit_gateway" {
+  route_table_id  = "${element(aws_route_table.nat.*.id, count.index)}"
+  cidr_block      = "10.0.0.0/8"
+  transit_gateway = "${var.transit_gateway}"
+  count           = "${var.transit_gateway == "" ? 0 : length(var.azs)}"
+
+  depends_on = ["aws_route_table.nat"]
+}
+
 resource "aws_route_table_association" "nat_subnet" {
   count          = "${length(var.azs)}"
   subnet_id      = "${element(aws_subnet.nat_subnet.*.id, count.index)}"
