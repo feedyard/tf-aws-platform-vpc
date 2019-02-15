@@ -77,13 +77,28 @@ resource "aws_route" "nat_gateway" {
   depends_on = ["aws_route_table.nat"]
 }
 
-resource "aws_route" "transit_gateway" {
-  route_table_id         = "${element(aws_route_table.nat.*.id, count.index)}"
-  destination_cidr_block = "10.0.0.0/8"
-  transit_gateway_id     = "${var.transit_gateway}"
-  count                  = "${var.transit_gateway == "" ? 0 : length(var.azs)}"
+//resource "aws_route" "transit_gateway" {
+//  route_table_id         = "${element(aws_route_table.nat.*.id, count.index)}"
+//  destination_cidr_block = "10.0.0.0/8"
+//  transit_gateway_id     = "${var.transit_gateway}"
+//  count                  = "${var.transit_gateway == "" ? 0 : length(var.azs)}"
+//
+//  depends_on = ["aws_route_table.nat"]
+//}
 
-  depends_on = ["aws_route_table.nat"]
+data "aws_subnet_ids" "nat_subnet" {
+  vpc_id = "${aws_vpc.mod.id}"
+
+  tags = {
+    Tier = "nat"
+  }
+}
+
+resource "aws_ec2_transit_gateway_vpc_attachment" "example" {
+  vpc_id     = "${aws_vpc.mod.id}"
+  subnet_ids = "${data.aws_subnet_ids.nat_subnet}"
+
+  transit_gateway_id = "${var.transit_gateway}"
 }
 
 resource "aws_route_table_association" "nat_subnet" {
