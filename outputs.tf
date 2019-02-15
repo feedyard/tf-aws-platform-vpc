@@ -14,13 +14,13 @@ output "azs" {
 }
 
 # list of public subnet cidr blocks
-output "public_subnet_cidrs" {
-  value = ["${aws_subnet.public_subnet.*.cidr_block}"]
+output "public_subnet_cidr" {
+  value = "${join(",",aws_subnet.public_subnet.*.cidr_block)}"
 }
 
 # list of public subnet ids
-output "public_subnet_ids" {
-  value = ["${aws_subnet.public_subnet.*.id}"]
+output "public_subnet_id" {
+  value = "${join(",",aws_subnet.public_subnet.*.id)}"
 }
 
 # internet gateway
@@ -29,23 +29,23 @@ output "igw_id" {
 }
 
 # list of nat subnet cidr blocks
-output "nat_subnet_cidrs" {
-  value = ["${aws_subnet.nat_subnet.*.cidr_block}"]
+output "nat_subnet_cidr" {
+  value = "${join(",",aws_subnet.nat_subnet.*.cidr_block)}"
 }
 
 # list of nat subnet ids
-output "nat_subnet_ids" {
-  value = ["${aws_subnet.nat_subnet.*.id}"]
+output "nat_subnet_id" {
+  value = "${join(",",aws_subnet.nat_subnet.*.id)}"
 }
 
 # list of internal subnet cidr blocks
-output "internal_subnet_cidrs" {
-  value = ["${aws_subnet.internal_subnet.*.cidr_block}"]
+output "internal_subnet_cidr" {
+  value = "${join(",",aws_subnet.internal_subnet.*.cidr_block)}"
 }
 
 # list of internal subnet ids
-output "internal_subnet_ids" {
-  value = ["${aws_subnet.internal_subnet.*.id}"]
+output "internal_subnet_id" {
+  value = "${join(",",aws_subnet.internal_subnet.*.id)}"
 }
 
 # db subnet group for internal subnet
@@ -54,18 +54,18 @@ output "db_subnet_group" {
 }
 
 # list of nat gateway internal ip addresses
-output "nat_eips" {
-  value = ["${aws_eip.nateip.*.id}"]
+output "nat_eip" {
+  value = "${join(",",aws_eip.nateip.*.id)}"
 }
 
 # list of net gateway public ip addresses
-output "nat_eips_public_ips" {
-  value = ["${aws_eip.nateip.*.public_ip}"]
+output "nat_eips_public_ip" {
+  value = "${join(",",aws_eip.nateip.*.public_ip)}"
 }
 
 # list of nat gateway ids
-output "natgw_ids" {
-  value = ["${aws_nat_gateway.natgw.*.id}"]
+output "natgw_id" {
+  value = "${join(",",aws_nat_gateway.natgw.*.id)}"
 }
 
 output "natgw_objects" {
@@ -75,18 +75,18 @@ output "natgw_objects" {
 }
 
 # list of public routing table ids
-output "public_route_table_ids" {
-  value = ["${aws_route_table.public.*.id}"]
+output "public_route_table_id" {
+  value = "${join(",",aws_route_table.public.*.id)}"
 }
 
 # list of nat routing table ids
-output "nat_route_table_ids" {
-  value = ["${aws_route_table.nat.*.id}"]
+output "nat_route_table_id" {
+  value = "${join(",",aws_route_table.nat.*.id)}"
 }
 
 # list of internal routing table ids
-output "internal_route_table_ids" {
-  value = ["${aws_route_table.internal.*.id}"]
+output "internal_route_table_id" {
+  value = "${join(",",aws_route_table.internal.*.id)}"
 }
 
 # maps currently used by kops pipeline

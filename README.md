@@ -83,21 +83,21 @@ module "cluster_vpc" {
 | cluster\_name | cluster name defined |
 | db\_subnet\_group | db subnet group for internal subnet |
 | igw\_id | internet gateway |
-| internal\_route\_table\_ids | list of internal routing table ids |
-| internal\_subnet\_cidrs | list of internal subnet cidr blocks |
-| internal\_subnet\_ids | list of internal subnet ids |
+| internal\_route\_table\_id | list of internal routing table ids |
+| internal\_subnet\_cidr | list of internal subnet cidr blocks |
+| internal\_subnet\_id | list of internal subnet ids |
 | internal\_subnet\_objects | map of internal subnet ids, azs, cidrs, and names |
-| nat\_eips | list of nat gateway internal ip addresses |
-| nat\_eips\_public\_ips | list of net gateway public ip addresses |
-| nat\_route\_table\_ids | list of nat routing table ids |
-| nat\_subnet\_cidrs | list of nat subnet cidr blocks |
-| nat\_subnet\_ids | list of nat subnet ids |
+| nat\_eip | list of nat gateway internal ip addresses |
+| nat\_eips\_public\_ip | list of net gateway public ip addresses |
+| nat\_route\_table\_id | list of nat routing table ids |
+| nat\_subnet\_cidr | list of nat subnet cidr blocks |
+| nat\_subnet\_id | list of nat subnet ids |
 | nat\_subnet\_objects | map of nat subnet ids, azs, cidrs, and names |
-| natgw\_ids | list of nat gateway ids |
+| natgw\_id | list of nat gateway ids |
 | natgw\_objects | - |
-| public\_route\_table\_ids | list of public routing table ids |
-| public\_subnet\_cidrs | list of public subnet cidr blocks |
-| public\_subnet\_ids | list of public subnet ids |
+| public\_route\_table\_id | list of public routing table ids |
+| public\_subnet\_cidr | list of public subnet cidr blocks |
+| public\_subnet\_id | list of public subnet ids |
 | public\_subnet\_objects | map of public subnet ids, azs, cidrs, and names |
 | vpc | maps currently used by kops pipeline |
 | vpc\_cidr | cidr block of vpc created |
