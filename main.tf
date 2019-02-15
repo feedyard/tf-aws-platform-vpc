@@ -77,7 +77,7 @@ resource "aws_route" "nat_gateway" {
   depends_on = ["aws_route_table.nat"]
 }
 
-resources "aws_route" "transit_gateway" {
+resource "aws_route" "transit_gateway" {
   route_table_id  = "${element(aws_route_table.nat.*.id, count.index)}"
   cidr_block      = "10.0.0.0/8"
   transit_gateway = "${var.transit_gateway}"
