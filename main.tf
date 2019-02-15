@@ -78,10 +78,10 @@ resource "aws_route" "nat_gateway" {
 }
 
 resource "aws_route" "transit_gateway" {
-  route_table_id  = "${element(aws_route_table.nat.*.id, count.index)}"
-  cidr_block      = "10.0.0.0/8"
-  transit_gateway = "${var.transit_gateway}"
-  count           = "${var.transit_gateway == "" ? 0 : length(var.azs)}"
+  route_table_id         = "${element(aws_route_table.nat.*.id, count.index)}"
+  destination_cidr_block = "10.0.0.0/8"
+  transit_gateway_id     = "${var.transit_gateway}"
+  count                  = "${var.transit_gateway == "" ? 0 : length(var.azs)}"
 
   depends_on = ["aws_route_table.nat"]
 }
