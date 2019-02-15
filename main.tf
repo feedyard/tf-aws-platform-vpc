@@ -96,7 +96,7 @@ data "aws_subnet_ids" "nat_subnet" {
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "nat_subnet" {
   vpc_id     = "${aws_vpc.mod.id}"
-  subnet_ids = ["${data.aws_subnet_ids.nat_subnet.id}"]
+  subnet_ids = ["${data.aws_subnet_ids.nat_subnet.ids}"]
 
   transit_gateway_id = "${var.transit_gateway}"
 }
