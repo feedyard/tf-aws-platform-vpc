@@ -95,10 +95,12 @@ data "aws_subnet_ids" "nat_subnet" {
 }
 
 resource "aws_ec2_transit_gateway_vpc_attachment" "nat_subnet" {
-  vpc_id     = "${aws_vpc.mod.id}"
-  subnet_ids = ["${data.aws_subnet_ids.nat_subnet.ids}"]
-
-  transit_gateway_id = "${var.transit_gateway}"
+  count                                           = "${var.transit_gateway == "" ? 0 : 1}"
+  vpc_id                                          = "${aws_vpc.mod.id}"
+  subnet_ids                                      = ["${data.aws_subnet_ids.nat_subnet.ids}"]
+  transit_gateway_default_route_table_association = "false"
+  transit_gateway_default_route_table_propagation = "false"
+  transit_gateway_id                              = "${var.transit_gateway}"
 }
 
 resource "aws_route_table_association" "nat_subnet" {
